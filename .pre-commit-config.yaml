@@ -26,14 +26,16 @@ repos:
       - id: ruff-format
         files: ^((skore|skore-hub-project|skore-local-project)/(hatch|src|tests))|(examples)/
 
-  - repo: https://github.com/allganize/ty-pre-commit
-    rev: v0.0.19  # ty version
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
     hooks:
-      - id: ty-check
-        alias: ty-skore
-        name: ty skore/
-        args: [--project, skore]
+
+      - id: mypy
         pass_filenames: false
+        alias: mypy-skore
+        name: mypy skore/
+        files: ^skore/
+        args: [--config-file=skore/pyproject.toml, skore]
         additional_dependencies:
           # from dependencies
           - IPython
@@ -53,16 +55,18 @@ repos:
           - pyarrow
           - scipy-stubs
 
-      - id: ty-check
-        alias: ty-skore-hub-project
-        name: ty skore-hub-project/
-        args: [--project, skore-hub-project]
+      - id: mypy
         pass_filenames: false
+        alias: mypy-skore-hub-project
+        name: mypy skore-hub-project/
+        files: ^skore-hub-project/
+        args: [--config-file=skore-hub-project/pyproject.toml, skore-hub-project]
         additional_dependencies: [skore, blake3, httpx, orjson, pandas-stubs, pydantic]
 
-      - id: ty-check
-        alias: ty-skore-local-project
-        name: ty skore-local-project/
-        args: [--project, skore-local-project]
+      - id: mypy
         pass_filenames: false
+        alias: mypy-skore-local-project
+        name: mypy skore-local-project/
+        files: ^skore-local-project/
+        args: [--config-file=skore-local-project/pyproject.toml, skore-local-project]
         additional_dependencies: [skore]

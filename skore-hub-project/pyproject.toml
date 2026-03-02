@@ -109,18 +109,18 @@ convention = "numpy"
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D"]
 
-[tool.ty.src]
-exclude = ["hatch/**", "tests/**"]
+[tool.mypy]
+exclude = ["hatch/", "tests/"]
+strict = true
 
-[tool.ty.rules]
-# pydantic, blake3, httpx not found by ty's resolver for this sub-package
-unresolved-import = "ignore"
-# ClassVar cannot contain type variables (pydantic Generic pattern)
-invalid-type-form = "ignore"
-# upload() content arg nullability
-invalid-argument-type = "ignore"
-# Project kwargs assignment
-invalid-assignment = "ignore"
+[[tool.mypy.overrides]]
+follow_untyped_imports = true
+module = ["skore.*"]
 
-[tool.ty.terminal]
-error-on-warning = true
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  "joblib.*",
+  "scipy.*",
+  "sklearn.*",
+]
