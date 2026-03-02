@@ -162,18 +162,33 @@ convention = "numpy"
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D"]
 
-[tool.mypy]
-exclude = ["src/skore/_externals/", "hatch/", "tests/"]
+[tool.ty.src]
+exclude = ["hatch/**", "src/skore/_externals/**", "tests/**"]
 
-[[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = [
-  "ipywidgets.*",
-  "jinja2.*",
-  "joblib.*",
-  "pandas.*",
-  "plotly.*",
-  "seaborn.*",
-  "sklearn.*",
-  "skrub.*",
-]
+[tool.ty.rules]
+# Baseline suppressions — pre-existing issues, address incrementally.
+# sklearn compat layer uses private APIs not in type stubs
+unresolved-import = "ignore"
+# sklearn BaseEstimator doesn't expose classes_ etc. in stubs
+unresolved-attribute = "ignore"
+# pandas/numpy overloaded signatures too strict for dynamic usage
+no-matching-overload = "ignore"
+# str→list narrowing patterns (aggregate = [aggregate])
+invalid-assignment = "ignore"
+# Dynamic callable patterns (hasattr guards not enough for ty)
+call-non-callable = "ignore"
+# Dynamic **kwargs forwarding to typed functions
+invalid-argument-type = "ignore"
+# Base class method signatures differ in subclass plots
+invalid-return-type = "ignore"
+# Cast already at target type (harmless)
+redundant-cast = "ignore"
+# Missing param in sklearn compat validate_params
+missing-argument = "ignore"
+# sklearn compat check_array renamed param
+unknown-argument = "ignore"
+# importlib.metadata submodule access
+possibly-missing-attribute = "ignore"
+
+[tool.ty.terminal]
+error-on-warning = true

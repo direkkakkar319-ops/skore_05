@@ -291,9 +291,7 @@ class PredictionErrorDisplay(DisplayMixin):
                 labels = [f"Split #{label}" for label in labels]
             if hue == "output" and style is None:
                 labels = [f"Output #{label}" for label in labels]
-        handles.append(
-            Line2D([0], [0], **self._default_perfect_model_kwargs)  # type: ignore[arg-type]
-        )
+        handles.append(Line2D([0], [0], **self._default_perfect_model_kwargs))
 
         labels.append("Perfect predictions")
 
@@ -590,7 +588,7 @@ class PredictionErrorDisplay(DisplayMixin):
 
     # ignore the type signature because we override kwargs by specifying the name of
     # the parameters for the user.
-    def set_style(  # type: ignore[override]
+    def set_style(  # ty: ignore[invalid-method-override]
         self,
         *,
         policy: Literal["override", "update"] = "update",

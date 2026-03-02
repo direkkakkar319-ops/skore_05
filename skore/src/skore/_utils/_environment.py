@@ -22,7 +22,7 @@ def get_environment_info() -> dict[str, Any]:
     try:
         # get_ipython() is defined when running in Jupyter or IPython
         # there is no need to import IPython here
-        shell = get_ipython().__class__.__name__  # type: ignore
+        shell = get_ipython().__class__.__name__  # ty: ignore[unresolved-reference]
         env_info["details"]["ipython_shell"] = shell
 
         if shell == "ZMQInteractiveShell":  # Jupyter notebook/lab

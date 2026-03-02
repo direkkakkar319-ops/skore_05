@@ -423,7 +423,7 @@ class ImpurityDecreaseDisplay(DisplayMixin):
 
     # ignore the type signature because we override kwargs by specifying the name of
     # the parameters for the user.
-    def set_style(  # type: ignore[override]
+    def set_style(  # ty: ignore[invalid-method-override]
         self,
         *,
         policy: Literal["override", "update"] = "update",

@@ -99,17 +99,14 @@ convention = "numpy"
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["D"]
 
-[tool.mypy]
-exclude = ["hatch/", "tests/"]
-strict = true
+[tool.ty.src]
+exclude = ["hatch/**", "tests/**"]
 
-[[tool.mypy.overrides]]
-follow_untyped_imports = true
-module = ["skore.*"]
+[tool.ty.rules]
+# rich, joblib, diskcache, skore, platformdirs not found by ty's resolver
+unresolved-import = "ignore"
+# Cache = partial(Cache, ...) shadows the class import
+invalid-assignment = "ignore"
 
-[[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = [
-  "diskcache.*",
-  "joblib.*",
-]
+[tool.ty.terminal]
+error-on-warning = true

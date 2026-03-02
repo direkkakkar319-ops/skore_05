@@ -97,7 +97,7 @@ class EstimatorReportMetadata(ReportMetadata):  # noqa: D101
 
         return cast_to_float(getattr(report.metrics, name)(data_source="test"))
 
-    def __post_init__(self, report: EstimatorReport) -> None:  # type: ignore[override]
+    def __post_init__(self, report: EstimatorReport) -> None:  # ty: ignore[invalid-dataclass]
         """Initialize dynamic fields."""
         super().__post_init__(report)
 
@@ -143,7 +143,7 @@ class CrossValidationReportMetadata(ReportMetadata):  # noqa: D101
 
         return cast_to_float(series.iloc[0])
 
-    def __post_init__(self, report: CrossValidationReport) -> None:  # type: ignore[override]
+    def __post_init__(self, report: CrossValidationReport) -> None:  # ty: ignore[invalid-dataclass]
         """Initialize dynamic fields."""
         super().__post_init__(report)
 
