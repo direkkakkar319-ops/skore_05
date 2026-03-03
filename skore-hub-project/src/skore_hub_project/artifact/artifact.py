@@ -65,7 +65,7 @@ class Artifact(BaseModel, ABC):
             contextmanager = nullcontext(contextmanager)
 
         with contextmanager as content:
-            if content is not None:
+            if isinstance(content, str | bytes):
                 return upload(
                     project=self.project,
                     content=content,

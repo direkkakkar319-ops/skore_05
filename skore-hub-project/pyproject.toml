@@ -110,17 +110,3 @@ convention = "numpy"
 "tests/*" = ["D"]
 
 [tool.ty]
-
-[tool.ty.rules]
-# --- Baseline suppressions for pre-existing issues ---
-# These suppress diagnostics that existed before the mypy→ty migration.
-# Address them incrementally in follow-up PRs.
-#
-# pydantic, httpx, blake3 not discovered by ty's module resolution
-unresolved-import = "ignore"
-# artifact upload content type mismatch
-invalid-argument-type = "ignore"
-# ClassVar cannot contain type variables (pydantic generic models)
-invalid-type-form = "ignore"
-# subscript assignment on kwargs dict
-invalid-assignment = "ignore"

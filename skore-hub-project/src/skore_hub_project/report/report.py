@@ -5,7 +5,7 @@ from __future__ import annotations
 from abc import ABC
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import cached_property, partial
-from typing import ClassVar, Generic, TypeVar, cast
+from typing import Any, ClassVar, Generic, TypeVar, cast
 
 from pydantic import BaseModel, ConfigDict, Field, computed_field
 from rich.progress import BarColumn, Progress, TextColumn, TimeElapsedColumn
@@ -54,8 +54,8 @@ class ReportPayload(BaseModel, ABC, Generic[Report]):
 
     model_config = ConfigDict(frozen=True, arbitrary_types_allowed=True)
 
-    METRICS: ClassVar[tuple[type[Metric[Report]], ...]]
-    MEDIAS: ClassVar[tuple[type[Media[Report]], ...]]
+    METRICS: ClassVar[tuple[type[Metric[Any]], ...]]
+    MEDIAS: ClassVar[tuple[type[Media[Any]], ...]]
 
     project: Project = Field(repr=False, exclude=True)
     report: Report = Field(repr=False, exclude=True)

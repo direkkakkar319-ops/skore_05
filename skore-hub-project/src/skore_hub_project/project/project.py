@@ -10,7 +10,7 @@ from functools import wraps
 from operator import itemgetter
 from re import sub as substitute
 from tempfile import TemporaryFile
-from typing import TYPE_CHECKING, Any, ParamSpec, TypedDict, TypeVar
+from typing import TYPE_CHECKING, Any, ParamSpec, TypedDict, TypeVar, cast
 from unicodedata import normalize
 
 from httpx import HTTPStatusError, codes
@@ -124,7 +124,8 @@ def ensure_name_is_valid(method: Callable[P, R]) -> Callable[P, R]:
         if not isinstance(name, str):
             raise ValueError("`name` must be a str.")
 
-        kwargs["name"] = slug = slugify(name)
+        slug = slugify(name)
+        cast(dict[str, Any], kwargs)["name"] = slug
 
         if slug != name:
             warnings.warn(
